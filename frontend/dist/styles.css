@@ -1,0 +1,49 @@
+body {
+  /*TODO: font*/
+}
+
+.filtermenu {
+  float: left;
+  width: 20%;
+  background-color: #ddddff;
+  padding: 10px;
+}
+
+.filtermenu h1 {
+  font-size: 14px;
+}
+
+.filtermenu .semesterbuttoncontainer {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.filtermenu .semesterbuttoncontainer div {
+  font-size: 20px;
+  float: left;
+  padding: 10px;
+  background-color: #dddddd;
+}
+
+.filtermenu .semesterbuttoncontainer .selected {
+  background-color: #ddffdd;
+}
+
+.filtermenu .searchfield {
+  font-size: 20px;
+  width: 100%;
+}
+
+.filtermenu .faculty {
+  background-color: #ccccff;
+}
+
+.filtermenu .faculty .facultylist {
+  background-color: #bbbbff;
+}
+
+.examview {
+  float: left;
+  margin-left: 10px;
+  background-color: #ffdddd;
+}

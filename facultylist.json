@@ -1,0 +1,92 @@
+{
+	"hf": {
+		"institutes": [
+			"ilos|Europeiske språk, litteratur, europa- og amerikastudier",
+			"ifikk|Filosofi, kunsthistorie, idéhistorie, gresk og latin",
+			"iakh|Historie, arkeologi og konservering",
+			"ibsensenteret|Ibsen-studier",
+			"ikos|Kultur, religion, asiatiske språk, asia- og afrikastudier",
+			"imk|Medier og kommunikasjon",
+			"imv|Musikkvitenskap",
+			"il|Nordisk språk og litteratur, irsk, lingvistikk og retorikk"
+
+		],
+		"displayname": "HF"
+	},
+	"jus": {
+		"institutes": [
+			"afin|Forvaltningsinformatikk",
+			"jus|Juridiske emner",
+			"ikrs|Kriminologi og rettssosiologi",
+			"humanrights|Menneskerettigheter"
+
+		],
+		"displayname": "Jus"
+	},
+	"matnat": {
+		"institutes": [
+			"ibv|Biovitenskap",
+			"sfe|Entreprenørskap",
+			"farmasi|Farmasi",
+			"fys|Fysikk",
+			"geofag|Geologi, geografi og geofysikk",
+			"ifi|Informatikk",
+			"kjemi|Kjemi",
+			"math|Matematikk, mekanikk og statistikk",
+			"astro|Teoretisk astrofysikk"
+		],
+		"displayname": "MatNat"
+	},
+	"medisin": {
+		"institutes": [
+			"nutri|Ernæringsvitenskap",
+			"helsefag|Helsefag",
+			"helseadm|Helseledelse og helseøkonomi",
+			"inthealth|Internasjonal helse",
+			"med|Medisinstudiets emner",
+			"ipsy|Psykiatri",
+			"isv|Sykepleievitenskap"
+		],
+		"displayname": "Medisin"
+	},
+	"odont": {
+		"institutes": [
+			"tannlege|Odontologistudiets emner",
+			"tannpleie|Tannpleie"
+		],
+		"displayname": "Odontologi"
+	},
+	"sv": {
+		"institutes": [
+			"psykologi|Psykologi",
+			"oekonomi|Samfunnsøkonomi",
+			"sai|Sosialantropologi",
+			"iss|Sosiologi og samfunnsgeografi",
+			"statsvitenskap|Statsvitenskap",
+			"tik|Teknologi, innovasjon og kultur",
+			"sv|Tverrfaglige emner innen samfunnsvitenskap"
+		],
+		"displayname": "SV"
+	},
+	"teologi": {
+		"institutes": [],
+		"displayname": "Teologi"
+	},
+	"uv": {
+		"institutes": [
+			"iped|Pedagogikk",
+			"ils|Praktisk-pedagogisk utdanning, fagdidaktikk og utdanningsledelse",
+			"isp|Spesialpedagogikk"
+		],
+		"displayname": "UV"
+	},
+	"annet": {
+		"institutes": [
+			"energi|Energi",
+			"skk|Tverrfaglige kjønnsstudier",
+			"sum|Utvikling og miljø",
+			"nora|Norwegian for Academics"
+		],
+		"displayname": "Annet"
+	}
+}

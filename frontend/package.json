@@ -1,0 +1,29 @@
+{
+  "name": "mm-basic",
+  "version": "1.0.0",
+  "description": "basic aftenposten-multimedia template",
+  "author": "Per Byhring & Torstein Ringnes",
+  "license": "ISC",
+  "scripts": {
+    "watch-js": "watchify js/app.js -o dist/app.js -dv -t [ babelify --presets [ es2015 react ] ]",
+    "watch-scss": "node-sass --watch scss/styles.scss -o dist/ --output-style expanded",
+    "watch": "npm run watch-js & npm run watch-scss",
+    "build-js": "browserify js/app.js -t [ babelify --presets [ es2015 react ] ] | uglifyjs -mc > dist/app.js",
+    "build-css": "node-sass scss/styles.scss -o dist/ --output-style compressed",
+    "build": "npm run build-js & npm run build-css"
+  },
+  "devDependencies": {
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.11.1",
+    "babelify": "^7.3.0",
+    "browserify": "^11.0.0",
+    "node-sass": "^3.4.2",
+    "react-addons-update": "^15.1.0",
+    "uglify-js": "^2.4.24",
+    "watchify": "^3.3.0"
+  },
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
+  }
+}
