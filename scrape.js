@@ -199,8 +199,8 @@ var registerExam = (dateStart, dateEnd, element, name, url, examPageURL, semeste
 									'coursepageurl': url, 
 									'exampageurl': examPageURL,
 									'semester': semester,
-									'start': dateStart.toString(),
-									'end': dateEnd != null ? dateEnd.toString() : "",
+									'start': dateStart,
+									'end': dateEnd,
 									'info': info,
 									'faculty': faculty,
 									'institute': institute

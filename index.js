@@ -46,26 +46,9 @@ app.get('/api/getsemesters', function (req, res) {
 app.get('/api/getexams', function (req, res) {
 	mongoClient.connect(local ? "mongodb://localhost:27017/uioemner" : process.env.MONGODB_URI, (err, db)=>{
 		if(!err){
-			var result = [];
-			var processed = 0;
-			var count = -1;
-			db.collection('courses').find().count({},(err, c)=>{count = c;});
-
-			var sendResult = ()=>{
-				res.send(result);
-			}
-
-			//TODO: Clean this up?
-			db.collection('courses').find().sort({"start" : 1}).each((err, exam)=>{
-				if(exam != null){
-					result.push(exam);
-
-					if(++processed == count){
-						sendResult();
-					}
-				}
+			var result = db.collection('courses').find({}, {"sort": ["start", 'ascending']}).toArray((err, results)=>{
+				res.send(results);
 			});
-			
 		} else{
 			console.log("Could not connect to database.");
 			console.dir(err);
@@ -76,33 +59,18 @@ app.get('/api/getexams', function (req, res) {
 app.get('/rawdata', (req,res)=>{
 	mongoClient.connect(local ? "mongodb://localhost:27017/uioemner" : process.env.MONGODB_URI, (err, db)=>{
 		if(!err){
-			console.log("Successfully connected to database!");
-
 			var result = "<ul>";
-			var processed = 0;
-			var count = -1;
-			db.collection('courses').find().count({},(err, c)=>{count = c;});
 
-			var sendResult = ()=>{
-				result = result + "</ul>";
-				res.send(result);
-			}
+			var result = db.collection('courses').find({}, {"sort": ["start", 'ascending']}).toArray((err, results)=>{
+				for(var i = 0; i < results.length; i++){
+					var exam = results[i];
 
-			//TODO: Clean this up?
-			db.collection('courses').find().sort({"start" : 1}).each((err, exam)=>{
-				if(exam != null){
 					result += "<li><a href=\"" + exam.exampageurl + "\">Dato: " + exam.start + (exam.end == "" ? ""  : "til " + exam.end)
 							+ ", Emne: " + exam.coursecode + " - " + exam.coursename
 							+ ", Type: " + exam.info + "</a></li>";
-
-					if(++processed == count){
-						sendResult();
-					}
-					console.log("adding: " + processed + "/" + count);
 				}
+				res.send(result + "</ul>");
 			});
-
-			
 		} else{
 			console.log("Could not connect to database.");
 			console.dir(err);

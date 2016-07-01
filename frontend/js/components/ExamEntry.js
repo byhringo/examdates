@@ -11,36 +11,34 @@ export default class ExamEntry extends React.Component {
 		];
 	}
 
-	getDateString(d){
+	getDateString(d, withDate){
 		//Fix leading zeroes
 		var hours = d.getHours();
 		hours = (hours < 10 ? "0" : "") + hours;
 		var minutes = d.getMinutes();
 		minutes = (minutes < 10 ? "0" : "") + minutes;
 
-		var singledate = this.props.obj.end == "";
+		var dateString = d.getDate() + " " + this.monthNames[d.getMonth()];
 
-		return d.getDate() + " " + this.monthNames[d.getMonth()] + " kl. " + hours + ":" + minutes;
+		return (withDate ? dateString : "") + " kl. " + hours + ":" + minutes;
 	}
 
 	render(){
-		
-
-		var singledate = this.props.obj.end == "";
+		var singledate = this.props.obj.end == null;
 		var dStart = new Date(this.props.obj.start);
 		var dEnd = (singledate ? null : new Date(this.props.obj.end));
 
-		var pcontent = this.getDateString(dStart);
+		var pcontent = this.getDateString(dStart, false);
 
 		if(!singledate){
-			pcontent += " til " + this.getDateString(dEnd);
+			pcontent += " til " + this.getDateString(dEnd, true);
 		}
 
 		return (
 			<div className="examentry">
-				<h3>{this.props.obj.coursecode + " - " + this.props.obj.coursename}</h3>
-				<h4>{this.props.obj.info}</h4>
-				<p>{pcontent}</p>
+				<a href={this.props.obj.exampageurl} target="_blank"><h3>{this.props.obj.coursecode + " - " + this.props.obj.coursename}</h3></a>
+				<p className="info">{this.props.obj.info}</p>
+				<time>{pcontent}</time>
 			</div>
 		);
 	}

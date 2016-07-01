@@ -24,10 +24,13 @@ export default class FilterMenu extends React.Component {
 				semester1={this.props.semester1}
 				semester2={this.props.semester2}
 				notifySemesterToggle={this.props.notifySemesterToggle.bind(this.props.layoutobj)} />
+				<SearchField notifySearchFieldChange={this.props.notifySearchFieldChange}/>
 
-				<SearchField />
-
-				{faculties}			
+				<div className="menu-wrapper">
+					<div className="menu">
+						{faculties}
+					</div>
+				</div>
 			</div>
 		);
 	}

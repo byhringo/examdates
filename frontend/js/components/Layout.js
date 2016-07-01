@@ -4,6 +4,9 @@ import update from "react-addons-update";
 import ExamView from "./ExamView.js";
 import FilterMenu from "./FilterMenu.js";
 
+const preview = false;
+
+
 export default class Layout extends React.Component {
 	constructor(){
 		super();
@@ -44,7 +47,7 @@ export default class Layout extends React.Component {
 	}
 
 	rebuildFilter(){
-		var filter = "";
+		var filter = preview ? "ifi" : "";
 
 		//Add the semester filter
 		filter = filter.concat((this.state.activeSemester == 0 ? this.state.semester1 : this.state.semester2) + ",");
@@ -83,8 +86,8 @@ export default class Layout extends React.Component {
 		this.setState({activeSemester: this.state.activeSemester == 0 ? 1 : 0}, this.rebuildFilter);
 	}
 
-	notifySearchFieldChange(newVal){
-		this.setState({searchterm: newVal});
+	notifySearchFieldChange(e){
+		this.setState({searchterm: e.target.value});
 	}
 
 	render(){
@@ -99,7 +102,7 @@ export default class Layout extends React.Component {
 					notifyInstituteToggle={this.notifyInstituteToggle}
 					notifyFacultyToggle={this.notifyFacultyToggle}
 					notifySemesterToggle={this.notifySemesterToggle}
-					notifySearchFieldChange={this.notifySearchFieldChange} />
+					notifySearchFieldChange={this.notifySearchFieldChange.bind(this)} />
 
 					
 				<ExamView
