@@ -21,7 +21,7 @@
 			"humanrights|Menneskerettigheter"
 
 		],
-		"displayname": "Jus"
+		"displayname": "Juss"
 	},
 	"matnat": {
 		"institutes": [
@@ -69,7 +69,9 @@
 		"displayname": "SV"
 	},
 	"teologi": {
-		"institutes": [],
+		"institutes": [
+			"tf|Teologi"
+		],
 		"displayname": "Teologi"
 	},
 	"uv": {

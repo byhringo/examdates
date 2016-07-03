@@ -5,7 +5,7 @@ import ExamView from "./ExamView.js";
 import FilterMenu from "./FilterMenu.js";
 
 const preview = false;
-
+const userInputDelay = 250;
 
 export default class Layout extends React.Component {
 	constructor(){
@@ -14,16 +14,37 @@ export default class Layout extends React.Component {
 		this.state = {
 			examlist: {}, 
 			faclist: {}, 
-			semester1: "foo",
-			semester2: "bar",
+			semester1: "Oops!",
+			sem1examcount: 0,
+			semester2: "Something failed.",
+			sem2examcount: 0,
 			activeSemester: 0, 
 			filter: "", 
 			searchterm: ""};
 
 		var reactobj = this;
 
+		//Used to prevent the search term from updating too fast
+		this.updateID = 0;
+
 		$.getJSON("/api/getexams/", function(data){
 			reactobj.setState({examlist: data});
+
+			var s1 = 0;
+			var s2 = 0;
+
+			data.forEach(exam=>{
+				if(exam.semester == reactobj.state.semester1){
+					s1++;
+				}
+				if(exam.semester == reactobj.state.semester2){
+					s2++;
+				}
+			});
+
+			console.log("s1: " + s1 + " | s2: " + s2);
+
+			reactobj.setState({sem1examcount: s1, sem2examcount: s2});
 		});
 
 		//Load the faculty list
@@ -67,6 +88,11 @@ export default class Layout extends React.Component {
 	notifyInstituteToggle(facKey, instituteIndex){
 		var faclist = this.state.faclist;
 
+		//If all institutes were active, instead of turning this one off, turn off all the other ones
+		if(faclist[facKey].instituteFilter.every(val=>{return val})){
+			this.notifyFacultyToggle(facKey, false);
+		}
+
 		faclist[facKey].instituteFilter[instituteIndex] = !faclist[facKey].instituteFilter[instituteIndex];
 
 		this.setState({faclist: faclist}, this.rebuildFilter);
@@ -86,8 +112,17 @@ export default class Layout extends React.Component {
 		this.setState({activeSemester: this.state.activeSemester == 0 ? 1 : 0}, this.rebuildFilter);
 	}
 
+	//Update the search term if the user has not made any additional changes within the last <userInputDelay> seconds
 	notifySearchFieldChange(e){
-		this.setState({searchterm: e.target.value});
+		var updateSearchTerm = (newTerm, uid)=>{
+			if(uid == this.updateID){
+				this.setState({searchterm: newTerm});
+			}
+		}
+		//Prevents integer overflow errors :)
+		this.updateID = (this.updateID + 1) % 10000;
+
+		setTimeout(updateSearchTerm.bind(this, e.target.value, this.updateID), userInputDelay);
 	}
 
 	render(){
@@ -96,7 +131,9 @@ export default class Layout extends React.Component {
 				<FilterMenu
 					faclist={this.state.faclist}
 					semester1={this.state.semester1}
+					sem1examcount={this.state.sem1examcount}
 					semester2={this.state.semester2}
+					sem2examcount={this.state.sem2examcount}
 					activeSemester={this.state.activeSemester}
 					layoutobj={this}
 					notifyInstituteToggle={this.notifyInstituteToggle}

@@ -37,35 +37,43 @@ export default class ExamView extends React.Component {
 			/>);
 	}
 
-	matchesSearchFilter(exam){
-		var matchCode = false;
-		var matchName = false;
-		try{
-			var reTerm = new RegExp(this.props.searchterm.toLowerCase());
+	matchesSearchTerm(exam){
+		var splitTerm = this.props.searchterm.toLowerCase().split(/[ ,]+/);
 
-			var matchCode = reTerm.test(exam.coursecode.toLowerCase());
-			var matchName = reTerm.test(exam.coursename.toLowerCase());
-		} catch (e){
-			//Not a valid regexp. Try matching another way.
-			var matchCode = this.props.searchterm.toLowerCase().indexOf(exam.coursecode.toLowerCase()) >= 0;
-			var matchName = this.props.searchterm.toLowerCase().indexOf(exam.coursename.toLowerCase()) >= 0;
+		var strings = [exam.coursecode.toLowerCase(), exam.coursename.toLowerCase()];
+		var rexps = [];
+
+		splitTerm.forEach(term=>{
+			try{
+				var reTerm = new RegExp(term);
+				rexps.push(reTerm);
+			} catch (e){}
+		});
+
+		for(var i = 0; i < rexps.length; i++){
+			for(var j = 0; j < strings.length; j++){
+				if(rexps[i].test(strings[j])){
+					return true;
+				}
+			}
 		}
 
-		return matchCode || matchName;
+		return false;
 	}
 
 	render(){
 		var exams = [];
 		var htmlexams = [];
-
+		
 		for(var i = 0; i < this.props.examlist.length; i++){
 			var exam = this.props.examlist[i];
+			var splitfilter = this.props.filter.split(",");
 
-			var instFilterPass = this.props.filter.indexOf(exam.institute) >= 0;
-			var semFilterPass = this.props.filter.indexOf(exam.semester) >= 0;
-			var searchFilterPass = this.props.searchterm.length > 0 ? this.matchesSearchFilter(exam) : false;
+			var instFilterPass = splitfilter.indexOf(exam.institute) >= 0;
+			var semFilterPass = splitfilter.indexOf(exam.semester) >= 0;
+			var searchTermPass = this.props.searchterm.length > 0 ? this.matchesSearchTerm(exam) : false;
 
-			var included = (instFilterPass && semFilterPass) || searchFilterPass;
+			var included = (instFilterPass && semFilterPass) || searchTermPass;
 
 			if(included){
 				exams.push(exam);
@@ -101,7 +109,12 @@ export default class ExamView extends React.Component {
 				currentDate.setDate(currentDate.getDate()+1);
 			}
 		} else{
-			exams.push(<p>Ingen eksamener stemmer med dette filteret. Prøv igjen :)</p>);
+			var noActiveFilters = this.props.filter.length == 4 && this.props.searchterm.length == 0;
+
+			htmlexams.push(<p
+					key="noresultsinfo"
+					className="noresults">{noActiveFilters ? "Bruk menyen over til å finne eksamener ved UiO." : "Ingen resultater funnet."}
+				</p>);
 		}
 
 		return (

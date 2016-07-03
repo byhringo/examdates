@@ -36,9 +36,12 @@ export default class ExamEntry extends React.Component {
 
 		return (
 			<div className="examentry">
-				<a href={this.props.obj.exampageurl} target="_blank"><h3>{this.props.obj.coursecode + " - " + this.props.obj.coursename}</h3></a>
+				<h3>{this.props.obj.coursecode + " - " + this.props.obj.coursename}</h3>
 				<p className="info">{this.props.obj.info}</p>
-				<time>{pcontent}</time>
+				<div className="time-links-wrapper">
+					<time>{pcontent}</time>
+					<a href={this.props.obj.exampageurl} target="_blank">Eksamensside</a>
+				</div>
 			</div>
 		);
 	}

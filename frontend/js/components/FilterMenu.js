@@ -19,11 +19,18 @@ export default class FilterMenu extends React.Component {
 
 		return (
 			<div className="filtermenu">
+				<h1>Eksamenskalender for UiO</h1>
+				{/* Switching between semesters is currently disabled to simplify the UI
+
 				<SemesterButton 
 				activeSemester={this.props.activeSemester}
 				semester1={this.props.semester1}
+				sem1examcount={this.props.sem1examcount}
 				semester2={this.props.semester2}
+				sem2examcount={this.props.sem2examcount}
 				notifySemesterToggle={this.props.notifySemesterToggle.bind(this.props.layoutobj)} />
+				
+				*/}
 				<SearchField notifySearchFieldChange={this.props.notifySearchFieldChange}/>
 
 				<div className="menu-wrapper">
