@@ -44,10 +44,12 @@ export default class ExamView extends React.Component {
 		var rexps = [];
 
 		splitTerm.forEach(term=>{
-			try{
-				var reTerm = new RegExp(term);
-				rexps.push(reTerm);
-			} catch (e){}
+			if(term.length > 0){
+				try{
+					var reTerm = new RegExp(term);
+					rexps.push(reTerm);
+				} catch (e){}
+			}
 		});
 
 		for(var i = 0; i < rexps.length; i++){
@@ -115,6 +117,16 @@ export default class ExamView extends React.Component {
 					key="noresultsinfo"
 					className="noresults">{noActiveFilters ? "Bruk menyen over til å finne eksamener ved UiO." : "Ingen resultater funnet."}
 				</p>);
+
+			if(noActiveFilters){
+				htmlexams.push(<div
+					key="link"
+					className="link-wrapper">
+					<p>Eller...</p>
+					<p><a href="https://github.com/byhringo/examdates" target="_blank">Se koden på github</a></p>
+					<p><a href="mailto:oyvindbyhring@gmail.com">Meld ifra om feil</a></p>
+				</div>);
+			}
 		}
 
 		return (

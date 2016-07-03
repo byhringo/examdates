@@ -1,6 +1,7 @@
 $menuHoverColor: steelblue;
 
 body {
+	height: 100%;
 	background-color:#eee;
 	font-family: 'Work Sans', sans-serif;
 	font-weight: 300;
@@ -14,7 +15,6 @@ body {
 
 a {
 	color: steelblue;
-
 }
 
 .filtermenu {
@@ -163,7 +163,6 @@ a {
 }
 
 .examview {
-
 	ul {
 		list-style: none;
 		margin: 0;
@@ -174,6 +173,15 @@ a {
 			font-size: 30px;
 			color: rgb(150, 150, 150);
 			text-align: center;
+		}
+
+		.link-wrapper {
+			display:flex;
+			flex-direction:column;
+			justify-content:flex-end;
+			color: rgb(150, 150, 150);
+			font-size: 16px;
+			text-align:center;
 		}
 	}
 
@@ -197,6 +205,9 @@ a {
 		text-align:left;
 
 		.examentry {
+			display:flex;
+			flex-direction:column;
+			justify-content:space-between;
 			width: 25%;
 			background-color:#fff;
 			border-radius:5px;

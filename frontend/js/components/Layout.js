@@ -1,5 +1,4 @@
 import React from "react";
-import update from "react-addons-update";
 
 import ExamView from "./ExamView.js";
 import FilterMenu from "./FilterMenu.js";
@@ -41,8 +40,6 @@ export default class Layout extends React.Component {
 					s2++;
 				}
 			});
-
-			console.log("s1: " + s1 + " | s2: " + s2);
 
 			reactobj.setState({sem1examcount: s1, sem2examcount: s2});
 		});
@@ -127,7 +124,7 @@ export default class Layout extends React.Component {
 
 	render(){
 		return (
-			<div>
+			<div className="wrapper-all">
 				<FilterMenu
 					faclist={this.state.faclist}
 					semester1={this.state.semester1}

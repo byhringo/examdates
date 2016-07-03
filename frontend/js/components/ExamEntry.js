@@ -30,6 +30,7 @@ export default class ExamEntry extends React.Component {
 
 		var pcontent = this.getDateString(dStart, false);
 
+
 		if(!singledate){
 			pcontent += " til " + this.getDateString(dEnd, true);
 		}
