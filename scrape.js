@@ -14,6 +14,10 @@ var local = process.argv.indexOf('-l') != -1;
 var totalScrapeOperations = 0;
 var currentScrapeOperations = 0;
 
+var hits = 0;
+var misses = 0;
+var errors = 0;
+
 //Connect to the database to start our scraping
 mongoClient.connect(local ? "mongodb://localhost:27017/uioemner" : process.env.MONGODB_URI, (err, database)=>{
 	if(!err){
@@ -160,9 +164,9 @@ var scrapeSingleCourse = (name, url, col, semester)=>{
 
 						//We found a from-to date
 						if(match != null){
-							var from = convertToDate(match[0], semester.substring(1));
-							var to = convertToDate(match[1], semester.substring(1));
-							registerExam(from, to, elems[i], name, "http://www.uio.no" + url, examPageURL, col, semester);
+							var fromdate = convertToDate(match[0], semester.substring(1));
+							var todate = convertToDate(match[1], semester.substring(1));
+							registerExam(fromdate, todate, elems[i], name, "http://www.uio.no" + url, examPageURL, col, semester);
 						} else{
 							match = findSingleDate(paragraphtext);
 
@@ -171,6 +175,10 @@ var scrapeSingleCourse = (name, url, col, semester)=>{
 								var date = convertToDate(match, semester.substring(1));
 
 								registerExam(date, null, elems[i], name, "http://www.uio.no" + url, examPageURL, semester);
+								hits++;
+							}
+							else{
+								misses++;
 							}
 						}
 					}
@@ -179,11 +187,12 @@ var scrapeSingleCourse = (name, url, col, semester)=>{
 		} else{
 			var errormessage = "scrapeSingleCourse: Something is wrong with the website: " + examPageURL + "\n Unable to update course data.";
 			console.log(errormessage);
+			errors++;
 		}
 	});
 
 	currentScrapeOperations++;
-	if(!silent) console.log("Progress: " + currentScrapeOperations + "/" + totalScrapeOperations);
+	if(!silent) console.log("Progress: " + currentScrapeOperations + "/" + totalScrapeOperations + " | hits: " + hits + " | misses: " + misses + " | errors: " + errors);
 }
 
 var registerExam = (dateStart, dateEnd, element, name, url, examPageURL, semester)=>{
